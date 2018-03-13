@@ -1,6 +1,5 @@
 package lv.tsi.javacourses.bookshelf;
 
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.List;
@@ -9,15 +8,6 @@ import java.util.List;
 @Named
 public class BookSearchForm {
     private String term;
-
-    public List<Book> getSearchResult() {
-        return searchResult;
-    }
-
-    public void setSearchResult(List<Book> searchResult) {
-        this.searchResult = searchResult;
-    }
-
     private List<Book> searchResult;
 
     public String getTerm() {
@@ -28,4 +18,11 @@ public class BookSearchForm {
         this.term = term;
     }
 
+    public List<Book> getSearchResult() {
+        return searchResult;
+    }
+
+    public void setSearchResult(List<Book> searchResult) {
+        this.searchResult = searchResult;
+    }
 }
