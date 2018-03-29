@@ -10,7 +10,7 @@
         <f:viewParam name="id" value="#{bookDetailsForm.bookId}"/>
         <f:viewAction action="#{bookDetailsForm.findBook()}"/>
     </f:metadata>
-    <ui:define name="title">Book details</ui:define>
+    <ui:define name="title">#{bookDetailsForm.book.title} - Book shelf</ui:define>
     <ui:define name="content">
         <div class="w3-col s12 m6 l3 w3-padding">
             <div class="w3-card-4">
