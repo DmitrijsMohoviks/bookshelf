@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 @RequestScoped
 @Named
@@ -19,6 +20,7 @@ public class BookDetailsForm {
 
     private Book book;
 
+    @Transactional
     public void findBook() {
         book = em.find(Book.class, bookId);
     }

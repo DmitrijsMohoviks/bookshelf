@@ -8,11 +8,20 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(name= "FULL_NAME")
     private String fullName;
+
+    @Column(name= "EMAIL")
+    private String email;
+
+    @Column(name= "PASSWORD")
+    private String password;
+
 
     public Long getId() {
         return id;
@@ -28,5 +37,21 @@ public class User implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
