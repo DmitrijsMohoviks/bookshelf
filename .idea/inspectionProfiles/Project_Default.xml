@@ -416,7 +416,7 @@
     <inspection_tool class="JavadocReference" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JpaDataSourceORMDomInspection" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="JpaDataSourceORMInspection" enabled="false" level="ERROR" enabled_by_default="false" />
-    <inspection_tool class="JspUnescapedEl" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="JspUnescapedEl" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="safeTags">
         <list>
           <SafeTagInfo>
@@ -438,6 +438,11 @@
           <SafeTagInfo>
             <option name="namespace" value="http://xmlns.jcp.org/jsf/html" />
             <option name="tagName" value="inputText" />
+            <option name="attributeName" value="value" />
+          </SafeTagInfo>
+          <SafeTagInfo>
+            <option name="namespace" value="http://xmlns.jcp.org/jsf/html" />
+            <option name="tagName" value="link" />
             <option name="attributeName" value="value" />
           </SafeTagInfo>
         </list>

@@ -8,20 +8,15 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
-
     @Id
     @GeneratedValue
     private Long id;
-
     @Column(name= "FULL_NAME")
     private String fullName;
-
-    @Column(name= "EMAIL")
+    @Column(unique = true)
     private String email;
-
-    @Column(name= "PASSWORD")
+    @Column
     private String password;
-
 
     public Long getId() {
         return id;
