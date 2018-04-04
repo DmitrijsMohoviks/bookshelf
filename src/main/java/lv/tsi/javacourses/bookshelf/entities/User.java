@@ -1,12 +1,11 @@
 package lv.tsi.javacourses.bookshelf.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue
@@ -17,6 +16,13 @@ public class User implements Serializable {
     private String email;
     @Column
     private String password;
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+    @Column(name = "confirmation_code")
+    private String confirmationCode;
+    @Column(nullable = false)
+    private boolean confirmed = false;
 
     public Long getId() {
         return id;
@@ -48,5 +54,29 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
+
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
     }
 }
