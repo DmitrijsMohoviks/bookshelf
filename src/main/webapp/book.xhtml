@@ -29,6 +29,18 @@
                 </div>
             </div>
         </div>
+
+        <tr>
+            <td colspan="2">
+                <h:form>
+                    <h:messages/>
+                <h:commandButton value="Reserve" action="#{bookDetailsForm.reserve}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+                </h:form>
+            </td>
+        </tr>
+
     </ui:define>
 </ui:composition>
 </html>

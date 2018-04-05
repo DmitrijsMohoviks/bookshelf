@@ -22,4 +22,5 @@ public class CurrentUser implements Serializable {
     public void setSignedInUser(User signedInUser) {
         this.signedInUser = signedInUser;
     }
+
 }
