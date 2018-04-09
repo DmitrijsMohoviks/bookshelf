@@ -1,4 +1,4 @@
-package lv.tsi.javacourses.bookshelf.control;
+package lv.tsi.javacourses.bookshelf.controls;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

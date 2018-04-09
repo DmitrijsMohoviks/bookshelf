@@ -1,4 +1,4 @@
-package lv.tsi.javacourses.bookshelf.control;
+package lv.tsi.javacourses.bookshelf.controls;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

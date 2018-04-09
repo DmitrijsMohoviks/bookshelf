@@ -1,8 +1,8 @@
 package lv.tsi.javacourses.bookshelf.boundaries;
 
-import lv.tsi.javacourses.bookshelf.control.EmailSender;
-import lv.tsi.javacourses.bookshelf.control.UserControl;
-import lv.tsi.javacourses.bookshelf.control.Util;
+import lv.tsi.javacourses.bookshelf.controls.EmailSender;
+import lv.tsi.javacourses.bookshelf.controls.UserControl;
+import lv.tsi.javacourses.bookshelf.controls.Util;
 import lv.tsi.javacourses.bookshelf.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

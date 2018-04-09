@@ -1,4 +1,4 @@
-package lv.tsi.javacourses.bookshelf.control;
+package lv.tsi.javacourses.bookshelf.controls;
 
 import lv.tsi.javacourses.bookshelf.entities.Role;
 import lv.tsi.javacourses.bookshelf.entities.User;
@@ -32,7 +32,6 @@ public class UserControl {
             return null;
         }
     }
-
 
     public Role findRole(String name) {
         return em.createQuery("select r from Role r where r.name = :name", Role.class)

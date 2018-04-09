@@ -3,12 +3,10 @@ package lv.tsi.javacourses.bookshelf.boundaries;
 import lv.tsi.javacourses.bookshelf.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import lv.tsi.javacourses.bookshelf.control.EmailSender;
-import lv.tsi.javacourses.bookshelf.control.UserControl;
-import lv.tsi.javacourses.bookshelf.control.Util;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import lv.tsi.javacourses.bookshelf.controls.EmailSender;
+import lv.tsi.javacourses.bookshelf.controls.UserControl;
+import lv.tsi.javacourses.bookshelf.controls.Util;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
