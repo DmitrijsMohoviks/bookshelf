@@ -1,11 +1,9 @@
 package lv.tsi.javacourses.bookshelf.boundaries;
 
-import lv.tsi.javacourses.bookshelf.entities.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import lv.tsi.javacourses.bookshelf.controls.EmailSender;
 import lv.tsi.javacourses.bookshelf.controls.UserControl;
 import lv.tsi.javacourses.bookshelf.controls.Util;
+import lv.tsi.javacourses.bookshelf.entities.User;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -15,20 +13,21 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @ViewScoped
 @Named
-public class RegistrationForm  implements Serializable {
-    private static final Logger logger = LoggerFactory.getLogger(RegistrationForm.class);
+public class RegistrationForm implements Serializable {
     private final static String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-
-    @Inject
-    private EmailSender emailSender;
-    @Inject
-    private UserControl userControl;
-
+    private static Lock lock = new ReentrantLock();
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private UserControl userControl;
+    @Inject
+    private EmailSender emailSender;
 
     private String fullName;
     private String email;
@@ -57,29 +56,19 @@ public class RegistrationForm  implements Serializable {
     }
 
 
-
     @Transactional
     public String confirm() {
         User u = userControl.findUserByEmail(email, false);
         if (u != null && Objects.equals(u.getConfirmationCode(), confirmationCode)) {
             u.setConfirmed(true);
-            return "/sign-in.xhtml?faces-redirect=true";
+            return "/login.xhtml?faces-redirect=true";
         } else {
             Util.addError("registration:confirmationCode", "Incorrect confirmation code");
             return null;
         }
     }
-
     public String getEmailRegex() {
         return EMAIL_REGEX;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFullName() {
@@ -88,6 +77,14 @@ public class RegistrationForm  implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword1() {
@@ -108,10 +105,6 @@ public class RegistrationForm  implements Serializable {
 
     public boolean isAwaitConfirmation() {
         return awaitConfirmation;
-    }
-
-    public void setAwaitConfirmation(boolean awaitConfirmation) {
-        this.awaitConfirmation = awaitConfirmation;
     }
 
     public String getConfirmationCode() {

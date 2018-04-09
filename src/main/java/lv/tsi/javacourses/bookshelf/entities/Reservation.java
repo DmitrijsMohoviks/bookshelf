@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "reservations")
 public class Reservation {
-
     @Id
     @GeneratedValue
     private Long id;

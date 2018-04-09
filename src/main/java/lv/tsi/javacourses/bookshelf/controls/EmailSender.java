@@ -8,12 +8,10 @@ import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import java.util.UUID;
 
-/**
- * @author Dimitrijs Fedotovs <a href="http://www.bug.guru">www.bug.guru</a>
- */
 @Stateless
 public class EmailSender {
     private static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
@@ -38,7 +36,7 @@ public class EmailSender {
             msg.setSubject("Email confirmation", "UTF-8");
             msg.setText("Your confirmation code is " + code, "UTF-8");
 
-            logger.info("confirmation code {}", code);
+            logger.info("Your confirmation code is {}", code);
 //            Transport.send(msg);
         } catch (MessagingException e) {
             logger.error("Sending email error", e);
@@ -54,8 +52,7 @@ public class EmailSender {
             msg.setSubject("Password reset", "UTF-8");
             msg.setText("You need this code to reset your password: " + code, "UTF-8");
 
-            logger.info("confirmation code {}", code);
-            //            Transport.send(msg);
+            Transport.send(msg);
         } catch (MessagingException e) {
             logger.error("Sending email error", e);
         }

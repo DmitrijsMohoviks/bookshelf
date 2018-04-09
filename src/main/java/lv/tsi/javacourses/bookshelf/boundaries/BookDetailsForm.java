@@ -20,17 +20,12 @@ import java.util.logging.Logger;
 @Named
 public class BookDetailsForm {
     private static Logger logger = Logger.getLogger("BookDetailsForm");
-
     @PersistenceContext
     private EntityManager em;
-
     @Inject
     private CurrentUser currentUser;
 
     private Long bookId;
-
-
-
     private Book book;
 
     @Transactional
@@ -39,36 +34,44 @@ public class BookDetailsForm {
     }
 
     @Transactional
-    public void reserve() {
-        logger.info("Reservation started");
+    public String reserve() {
+        logger.info("RESERVATION STARTED");
         User user = currentUser.getSignedInUser();
         findBook();
-        logger.info("User" + user.getId());
-        logger.info("Book" + book.getId());
+        logger.info("User " + user.getId());
+        logger.info("Book " + book.getId());
 
         List<Reservation> reservations = em.createQuery(
                 "select r from Reservation r " +
                         "where r.book = :book " +
                         "and r.user = :user " +
-                        "and r.status <> 'RELEASED'",
-                Reservation.class)
+                        "and r.status <> 'RELEASED'")
                 .setParameter("book", book)
                 .setParameter("user", user)
                 .getResultList();
+
         if (!reservations.isEmpty()) {
             FacesContext.getCurrentInstance()
-                    .addMessage(null, new FacesMessage("Already reserved"));
-            return;
+                    .addMessage(null,
+                            new FacesMessage("Already reserved"));
+            return null;
         }
 
         Reservation reservation = new Reservation();
-
         reservation.setBook(book);
         reservation.setUser(user);
         reservation.setStatus(Status.WAIT);
 
         em.persist(reservation);
+        return "/user-space/mybooks.xhtml?faces-redirect=true";
+    }
 
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Long getBookId() {
@@ -77,12 +80,5 @@ public class BookDetailsForm {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
-    }
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 }

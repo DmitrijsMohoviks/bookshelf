@@ -2,6 +2,7 @@ package lv.tsi.javacourses.bookshelf.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -10,14 +11,15 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(name= "FULL_NAME")
-    private String fullName;
     @Column(unique = true)
     private String email;
-    @Column
+    @Column(length = 1024)
     private String password;
+    @Column(name = "full_name")
+    private String fullName;
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     @Column(name = "confirmation_code")
     private String confirmationCode;
@@ -30,14 +32,6 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -56,12 +50,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public boolean isConfirmed() {
-        return confirmed;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setConfirmed(boolean confirmed) {
-        this.confirmed = confirmed;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Set<Role> getRoles() {
@@ -78,5 +72,38 @@ public class User implements Serializable {
 
     public void setConfirmationCode(String confirmationCode) {
         this.confirmationCode = confirmationCode;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='***'" +
+                ", fullName='" + fullName + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
